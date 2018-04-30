@@ -26,6 +26,27 @@ function onError(error) {
   console.log(`Error: ${error}`);
 }
 
+function letsDoThis(data){
+  browser.notifications.create({
+    "type": "basic",
+    "title": "PING",
+    "message": "THIS WORKS"
+  })
+}
+
+browser.runtime.onMessage.addListener(letsDoThis);
+
+/*
+Send message from content to bg
+*/
+
+function handleMessage(request, sender, sendResponse) {
+  console.log("message from content script" + request.greeting);
+  sendResponse({response: "Response from Background Script"});
+}
+
+browser.runtime.onMessage.addListener(handleMessage);
+
 /*
 Create all the context menu items.
 */
@@ -71,20 +92,6 @@ browser.menus.create({
   contexts: ["tools_menu"],
 }, onCreated);
 
-/*
-Set a colored border on the document in the given tab.
-
-Note that this only work on normal web pages, not special pages
-like about:debugging.
-*/
-var blue = 'document.body.style.border = "5px solid blue"';
-var green = 'document.body.style.border = "5px solid green"';
-
-function borderify(tabId, color) {
-  browser.tabs.executeScript(tabId, {
-    code: color
-  });
-}
 
 /*
 Toggle checkedState, and update the menu item's title
@@ -106,6 +113,20 @@ function updateCheckUncheck() {
     });
   }
 }
+
+
+/*Button Clicked - when we click the button we send a message
+from this background script to the content script to open 
+*/
+
+// browser.browserAction.onClicked.addListener(buttonClicked)
+
+// function buttonClicked(tabs) {
+//   browser.tabs.sendMessage(tabs[0].id, {
+//     replacement: "Message from the extension!"
+//   });
+// }
+
 
 /*
 The click event listener, where we perform the appropriate action given the

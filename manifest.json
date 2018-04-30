@@ -11,6 +11,13 @@
     }
   },
 
+//   "content_scripts": [
+//   {
+//     "matches": ["<all_urls>"],
+//     "js": ["content.js"]
+//   }
+// ],
+
   "background": {
     "scripts": ["background.js"]
   },
@@ -19,7 +26,8 @@
     "menus", 
     "storage", 
     "tabs",
-    "activeTab"
+    "activeTab",
+    "notifications"
   ],
   
   "icons": {
@@ -28,6 +36,14 @@
     "48": "icons/page-48.png"
   },
 
+//adding the icon for the extension
+  "browser_action": {
+    "default_icon": "icons/paint-green-32.png",
+    "default_title": "SIFTER",
+    "default_popup": "index.html"
+  },
+
+//adding the sidebar for the extension
   "sidebar_action": {
     "default_icon": "icons/page-32.png",
     "default_title" : "SIFT",

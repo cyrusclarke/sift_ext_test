@@ -9,6 +9,12 @@ window.addEventListener("mouseover", () => {
 });
 
 /*
+fill the box with current highlighted content */
+
+
+
+
+/*
 When the user mouses out, save the current contents of the box.
 */
 window.addEventListener("mouseout", () => {
