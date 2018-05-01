@@ -48,6 +48,23 @@ function handleMessage(request, sender, sendResponse) {
 browser.runtime.onMessage.addListener(handleMessage);
 
 /*
+send message from background script to content script to alter text on page 
+*/
+//first get the tab we're on 
+browser.tabs.onUpdated.addListener(function(tabId){
+  browser.pageAction.show(tabId)
+})
+//then get a click as an action
+browser.pageAction.onClicked.addListener(sendData)
+//then we send data to content script
+//when we send data from background script to content script it MUST go to a specific tab : so must use tabId
+function sendData(tab){
+  browser.tabs.sendMessage(tab.id, {data: 'dummyData'})
+}
+
+
+
+/*
 Create all the context menu items.
 */
 browser.menus.create({
